@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -6,8 +7,6 @@ public class Weapon : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public Transform firePoint;
     public float bulletVel = 10f;
-    Vector3 mousePos;
-    private Camera mainCam;
     public GameObject bulletPrefab;
 
     ObjectPooler objectPooler;
@@ -24,7 +23,6 @@ public class Weapon : MonoBehaviour
     private void Start()
     {
         objectPooler = ObjectPooler.Instance;
-        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
     void Shoot()
@@ -32,18 +30,11 @@ public class Weapon : MonoBehaviour
         // shooting logic
         // Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);// to spawn an object, Instantiate is used
         bulletPrefab = objectPooler.SpawnFromPool2D("Bullet", firePoint.position, firePoint.rotation);
-            
-        mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
 
-        Vector2 direction = mousePos - firePoint.position;
-
-        Vector2 unit_direction = direction / direction.magnitude;
-
-        Debug.Log("bullet vector: " + direction);
-        Debug.Log("vector length: " + direction.magnitude);
-
+        Vector2 angle = new Vector2(Mathf.Cos(Mathf.Deg2Rad * firePoint.rotation.eulerAngles.z), Mathf.Sin(Mathf.Deg2Rad * firePoint.rotation.eulerAngles.z));
+        
         Rigidbody2D bullet = bulletPrefab.GetComponent<Rigidbody2D>();
         
-        bullet.linearVelocity = unit_direction*bulletVel;
+        bullet.linearVelocity = angle*bulletVel;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
@@ -17,7 +18,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -25,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
         Input.GetAxisRaw("Vertical");
-
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -40,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
         {
             crouch = false;
         }
+
         
     }
 
