@@ -37,4 +37,10 @@ public class PointTable : MonoBehaviour
         Score += 4 * (10 - time_spent); // if last longer then 10s, point will decrease
         UpdateScoreText();
     }
+
+    public void AddPoint(float point)
+    {
+        Score += point;
+        UpdateScoreText();
+    }
 }
